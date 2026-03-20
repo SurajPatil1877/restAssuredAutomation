@@ -22,10 +22,7 @@ public class ReuseRequestSpec {
                 .basePath(basePath)
                 .pathParam("bookingId", 2)
                 .get();
-
-
         //pretty print the response
-
         response.prettyPrint();
     }
 
@@ -37,8 +34,6 @@ public class ReuseRequestSpec {
                 .basePath(basePath)
                 .queryParams(queryParam)
                 .get();
-
         System.out.println(response.asString());
-
     }
 }

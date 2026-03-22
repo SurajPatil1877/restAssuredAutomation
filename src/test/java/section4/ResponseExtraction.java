@@ -36,7 +36,7 @@ public class ResponseExtraction {
 
         System.out.printf("Checking Date is %s\n", checkingDate);
         System.out.printf("Total Price is %s\n", totalPrice);
-        System.out.printf("Booking Date map is %s\n", bookingDatesMap);
+        System.out.printf("BookingResponse Date map is %s\n", bookingDatesMap);
 
 //        inLineValidatableResponse.prettyPrint();
     }

@@ -5,7 +5,6 @@ import apis.UpdateBookingAPI;
 import com.github.javafaker.Faker;
 import com.github.javafaker.Name;
 import io.restassured.response.ValidatableResponse;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pojo.dataHandler.BookingDetails;

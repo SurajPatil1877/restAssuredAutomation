@@ -2,35 +2,28 @@ package framework;
 
 import apis.CreateBookingAPI;
 import apis.DeleteBookingAPI;
-import com.github.javafaker.Faker;
-import com.github.javafaker.Name;
 import io.restassured.response.ValidatableResponse;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pojo.dataHandler.BookingDetails;
-import util.TestDataHelper;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Map;
-import java.util.stream.IntStream;
 
 import static util.ApiRequestHelper.getCreateBookingPayload;
 
 
-public class DeleteBookingAPITest {
+public class DeleteBookingAPITest extends BaseTest {
 
 
     private DeleteBookingAPI deleteBookingAPI;
-    private Faker FAKER;
+
 
     @BeforeClass
     public void initAPI() {
         this.deleteBookingAPI = new DeleteBookingAPI();
-        this.FAKER = this.deleteBookingAPI.FAKER;
     }
 
-    @Test(description = "Delete and existing booking", dataProvider = "bookingDataWithStreamForDelete")
+    @Test(description = "Delete and existing booking", dataProvider = "bookingDataWithStream")
     public void deleteBookingTest(String firstName, String lastName, boolean isDepositPaid,
                                   String additionalNeeds, long totalPrice, String checkInDate, String checkOutDate) {
 
@@ -55,21 +48,4 @@ public class DeleteBookingAPITest {
                              .then().assertThat().statusCode(201);
 
     }
-
-    @DataProvider(name = "bookingDataWithStreamForDelete")
-    public Object[][] bookingDataWithStream() {
-        DateTimeFormatter isoDate = deleteBookingAPI.ISO_DATE;
-        Name name = FAKER.name();
-        return IntStream.range(0, 3)
-                        .mapToObj(i -> {
-                            int checkInDate = TestDataHelper.getRandomInt(2);
-                            return new Object[]{
-                                    name.firstName(), name.lastName(),
-                                    FAKER.bool().bool(), FAKER.food().dish(),
-                                    FAKER.number().randomNumber(3, true),
-                                    TestDataHelper.getFurtureDate(checkInDate, isoDate),
-                                    TestDataHelper.getFurtureDate(checkInDate + 4, isoDate)};
-                        }).toArray(Object[][]::new);
-    }
-
 }

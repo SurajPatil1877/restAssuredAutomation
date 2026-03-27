@@ -33,6 +33,4 @@ public class UpdateBookingAPI extends BaseAPI {
         super.setBasicAuth(username, password);
         return super.sendRequest(UPDATE_BOOKING.getMethodType());
     }
-
-
 }

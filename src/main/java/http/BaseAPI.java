@@ -1,6 +1,8 @@
 package http;
 
+import com.github.javafaker.Faker;
 import config.PropertyUil;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
@@ -9,14 +11,21 @@ import io.restassured.http.ContentType;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import util.TestDataHelper;
+
+import java.time.format.DateTimeFormatter;
 
 
 public abstract class BaseAPI {
 
     private final RequestSpecification requestSpecification;
+    public final Faker FAKER = TestDataHelper.getFAKER();
+    public final DateTimeFormatter ISO_DATE = DateTimeFormatter.ISO_DATE;
 
     public BaseAPI() {
-        requestSpecification = RestAssured.given().baseUri(PropertyUil.getConfig().baseURL());
+        requestSpecification = RestAssured.given()
+                                          .baseUri(PropertyUil.getConfig().baseURL())
+                                          .filter(new AllureRestAssured());
     }
 
     protected BaseAPI setRequestBody(Object object) {

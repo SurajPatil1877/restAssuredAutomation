@@ -23,7 +23,9 @@ public abstract class BaseAPI {
     public final DateTimeFormatter ISO_DATE = DateTimeFormatter.ISO_DATE;
 
     public BaseAPI() {
-        requestSpecification = RestAssured.given().baseUri(PropertyUil.getConfig().baseURL()).filter(new AllureRestAssured());
+        requestSpecification = RestAssured.given()
+                                          .baseUri(PropertyUil.getConfig().baseURL())
+                                          .filter(new AllureRestAssured());
     }
 
     protected BaseAPI setRequestBody(Object object) {

@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
 public class BaseTest {
     protected final Faker FAKER = TestDataHelper.getFAKER();
 
-    @DataProvider(name = "bookingDataWithStream")
+    @DataProvider(name = "bookingDataWithStream", parallel = true)
     public Object[][] bookingDataWithStream() {
         DateTimeFormatter isoDate = DateTimeFormatter.ISO_DATE;
         Name name = FAKER.name();

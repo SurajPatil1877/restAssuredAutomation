@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import config.PropertyUil;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
+import io.restassured.config.HttpClientConfig;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -14,6 +15,7 @@ import io.restassured.specification.RequestSpecification;
 import util.TestDataHelper;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 
 public abstract class BaseAPI {
@@ -23,9 +25,13 @@ public abstract class BaseAPI {
     public final DateTimeFormatter ISO_DATE = DateTimeFormatter.ISO_DATE;
 
     public BaseAPI() {
+        HttpClientConfig httpClientConfig = HttpClientConfig.httpClientConfig()
+                                                            .setParams(Map.of("http.connection.timeout", 5000, "http.socket.timeout", 5000));
         requestSpecification = RestAssured.given()
                                           .baseUri(PropertyUil.getConfig().baseURL())
-                                          .filter(new AllureRestAssured());
+                                          .filter(new AllureRestAssured())
+                                          .config(RestAssured.config()
+                                                             .and().httpClient(httpClientConfig));
     }
 
     protected BaseAPI setRequestBody(Object object) {
